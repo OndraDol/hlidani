@@ -329,18 +329,31 @@ body::after {
 }
 .hero-buttons { display: flex; flex-wrap: wrap; gap: 1rem; }
 
-/* Floating paw */
-.hero-paw {
+/* Floating decorations */
+.hero-float {
   position: absolute;
-  right: 10%;
-  top: 20%;
-  opacity: 0.1;
+  opacity: 0.12;
   z-index: 1;
-  animation: float 6s ease-in-out infinite;
+  pointer-events: none;
 }
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(-10deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
+.hero-float svg { fill: white; }
+.hero-float-1 { right: 8%; top: 15%; animation: float1 7s ease-in-out infinite; }
+.hero-float-2 { right: 25%; top: 30%; animation: float2 9s ease-in-out infinite 1s; }
+.hero-float-3 { left: 8%; top: 22%; animation: float3 8s ease-in-out infinite 0.5s; }
+.hero-float-4 { left: 20%; top: 45%; animation: float1 10s ease-in-out infinite 2s; opacity: 0.08; }
+.hero-float-5 { right: 15%; top: 55%; animation: float3 6s ease-in-out infinite 1.5s; opacity: 0.06; }
+@keyframes float1 {
+  0%, 100% { transform: translateY(0) rotate(-10deg) scale(1); }
+  50% { transform: translateY(-25px) rotate(10deg) scale(1.05); }
+}
+@keyframes float2 {
+  0%, 100% { transform: translateY(0) rotate(5deg); }
+  50% { transform: translateY(-18px) rotate(-8deg); }
+}
+@keyframes float3 {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  33% { transform: translateX(10px) translateY(-15px) rotate(8deg); }
+  66% { transform: translateX(-8px) translateY(-10px) rotate(-5deg); }
 }
 
 /* ====== ABOUT ====== */
@@ -946,16 +959,13 @@ body::after {
   <div class="hero-bg">
     <img src="foto/web/IMG20260331160040~3.jpg" alt="Pavlínka s malým štěňátkem beagla" loading="eager">
   </div>
-  <svg class="hero-paw" width="120" height="120" viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="17" cy="12" r="5" /><circle cx="31" cy="12" r="5" />
-    <circle cx="10" cy="22" r="4.5" /><circle cx="38" cy="22" r="4.5" />
-    <path d="M24 42C24 42 12 34 12 26C12 22 16 20 20 22C22 23 24 26 24 26C24 26 26 23 28 22C32 20 36 22 36 26C36 34 24 42 24 42Z"/>
-  </svg>
+  <!-- Floating decorations -->
+  <div class="hero-float hero-float-1"><svg width="90" height="90" viewBox="0 0 48 48"><circle cx="17" cy="12" r="5"/><circle cx="31" cy="12" r="5"/><circle cx="10" cy="22" r="4.5"/><circle cx="38" cy="22" r="4.5"/><path d="M24 42C24 42 12 34 12 26C12 22 16 20 20 22C22 23 24 26 24 26C24 26 26 23 28 22C32 20 36 22 36 26C36 34 24 42 24 42Z"/></svg></div>
+  <div class="hero-float hero-float-2"><svg width="40" height="40" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+  <div class="hero-float hero-float-3"><svg width="55" height="55" viewBox="0 0 48 48"><circle cx="17" cy="12" r="5"/><circle cx="31" cy="12" r="5"/><circle cx="10" cy="22" r="4.5"/><circle cx="38" cy="22" r="4.5"/><path d="M24 42C24 42 12 34 12 26C12 22 16 20 20 22C22 23 24 26 24 26C24 26 26 23 28 22C32 20 36 22 36 26C36 34 24 42 24 42Z"/></svg></div>
+  <div class="hero-float hero-float-4"><svg width="30" height="30" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+  <div class="hero-float hero-float-5"><svg width="65" height="65" viewBox="0 0 48 48"><circle cx="17" cy="12" r="5"/><circle cx="31" cy="12" r="5"/><circle cx="10" cy="22" r="4.5"/><circle cx="38" cy="22" r="4.5"/><path d="M24 42C24 42 12 34 12 26C12 22 16 20 20 22C22 23 24 26 24 26C24 26 26 23 28 22C32 20 36 22 36 26C36 34 24 42 24 42Z"/></svg></div>
   <div class="hero-content">
-    <div class="hero-badge">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white"/></svg>
-      Litoměřice a okolí
-    </div>
     <h1>Hlídání<br>u Pavlínky</h1>
     <p class="hero-sub">Domácí hlídání s láskou v Litoměřicích</p>
     <div class="hero-buttons">
@@ -971,7 +981,7 @@ body::after {
     <div class="about-grid">
       <div class="about-images reveal">
         <div class="about-img">
-          <img src="foto/web/IMG20260331160040~3.jpg" alt="Pavlínka drží malé štěňátko beagla" loading="lazy">
+          <img src="foto/web/IMG20260328143918_01.jpg" alt="Pavlínka na procházce s Amálkou v lese" loading="lazy">
         </div>
         <div class="about-img">
           <img src="foto/web/20250615_085014.jpg" alt="Amálka a Eliška v pelíšku" loading="lazy">
@@ -998,7 +1008,7 @@ body::after {
           </span>
           <span class="pet-tag">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 3 17 3 10C3 7 5.5 4 9 4C11 4 12 5.5 12 5.5C12 5.5 13 4 15 4C18.5 4 21 7 21 10C21 17 12 22 12 22Z" fill="#5B8C5A"/></svg>
-            Kocourek — ryzáček
+            Kocourek
           </span>
           <span class="pet-tag">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 3 17 3 10C3 7 5.5 4 9 4C11 4 12 5.5 12 5.5C12 5.5 13 4 15 4C18.5 4 21 7 21 10C21 17 12 22 12 22Z" fill="#E8836B"/></svg>
