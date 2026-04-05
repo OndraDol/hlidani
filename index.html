@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hlídání u Pavlínky — Domácí hlídání s láskou v Litoměřicích</title>
+<meta name="description" content="Domácí hlídání psů, koček a drobných zvířat v Litoměřicích. Rodinné prostředí, prostorná zahrada, časté procházky do přírody. Žádný psí hotel — u nás je váš mazlíček jako doma.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ====== RESET & BASE ====== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--dark);
+  background: var(--light);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; }
+
+/* ====== CSS VARIABLES ====== */
+:root {
+  --primary: #E8836B;
+  --primary-light: #f2a899;
+  --primary-dark: #d46a52;
+  --secondary: #F5E6D3;
+  --secondary-dark: #e8d3ba;
+  --accent: #5B8C5A;
+  --accent-light: #7aab79;
+  --dark: #3D3D3D;
+  --dark-soft: #5a5a5a;
+  --light: #FFF9F5;
+  --white: #ffffff;
+  --shadow-soft: 0 4px 24px rgba(61,61,61,0.08);
+  --shadow-md: 0 8px 32px rgba(61,61,61,0.12);
+  --shadow-lg: 0 16px 48px rgba(61,61,61,0.14);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-lg: 32px;
+  --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ====== TYPOGRAPHY ====== */
+h1, h2, h3, h4 { font-family: 'Quicksand', sans-serif; font-weight: 700; line-height: 1.2; color: var(--dark); }
+h1 { font-size: clamp(2.2rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
+.handwritten { font-family: 'Caveat', cursive; }
+.section-label {
+  font-family: 'Caveat', cursive;
+  font-size: 1.3rem;
+  color: var(--primary);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.section-title { margin-bottom: 1rem; }
+.section-desc {
+  font-size: 1.05rem;
+  color: var(--dark-soft);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+/* ====== LAYOUT ====== */
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; }
+section { padding: 5rem 0; position: relative; }
+
+/* ====== GRAIN OVERLAY ====== */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+
+/* ====== SCROLL ANIMATIONS ====== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ====== DECORATIVE ELEMENTS ====== */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+.blob-primary { background: var(--primary); }
+.blob-accent { background: var(--accent); }
+.blob-secondary { background: var(--secondary-dark); }
+
+/* ====== HEADER ====== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: var(--transition);
+  background: transparent;
+}
+.header.scrolled {
+  background: rgba(255, 249, 245, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(61,61,61,0.06);
+  padding: 0.6rem 0;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 1001;
+}
+.logo svg { width: 42px; height: 42px; }
+.logo-text {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--dark);
+  line-height: 1.1;
+}
+.logo-text span { display: block; font-size: 0.72rem; font-weight: 500; color: var(--primary); }
+
+.nav { display: flex; align-items: center; gap: 2rem; }
+.nav-links { display: none; gap: 1.8rem; }
+.nav-links a {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--dark);
+  position: relative;
+  transition: color var(--transition);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+  transition: width var(--transition);
+}
+.nav-links a:hover { color: var(--primary); }
+.nav-links a:hover::after { width: 100%; }
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  background: var(--primary);
+  color: var(--white);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 50px;
+  transition: all var(--transition);
+  box-shadow: 0 4px 16px rgba(232, 131, 107, 0.3);
+  white-space: nowrap;
+}
+.btn-cta:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(232, 131, 107, 0.4);
+}
+.btn-cta-outline {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid var(--white);
+  box-shadow: none;
+}
+.btn-cta-outline:hover {
+  background: var(--white);
+  color: var(--primary);
+  box-shadow: var(--shadow-md);
+}
+.btn-cta-green {
+  background: var(--accent);
+  box-shadow: 0 4px 16px rgba(91, 140, 90, 0.3);
+}
+.btn-cta-green:hover {
+  background: #4a7a49;
+  box-shadow: 0 6px 24px rgba(91, 140, 90, 0.4);
+}
+
+/* Mobile menu toggle */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+  z-index: 1001;
+}
+.menu-toggle span {
+  width: 24px;
+  height: 2.5px;
+  background: var(--dark);
+  border-radius: 3px;
+  transition: var(--transition);
+}
+.menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Mobile nav overlay */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 249, 245, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.mobile-nav.open { opacity: 1; pointer-events: auto; }
+.mobile-nav a {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--dark);
+  transition: color var(--transition);
+}
+.mobile-nav a:hover { color: var(--primary); }
+
+/* ====== HERO ====== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(61, 61, 61, 0.75) 0%,
+    rgba(61, 61, 61, 0.3) 40%,
+    rgba(61, 61, 61, 0.05) 70%,
+    transparent 100%
+  );
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 1.25rem 4rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--white);
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.hero-badge svg { width: 16px; height: 16px; }
+.hero h1 { color: var(--white); margin-bottom: 0.8rem; text-shadow: 0 2px 20px rgba(0,0,0,0.2); }
+.hero-sub {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  opacity: 0.95;
+  margin-bottom: 2rem;
+}
+.hero-buttons { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+/* Floating paw */
+.hero-paw {
+  position: absolute;
+  right: 10%;
+  top: 20%;
+  opacity: 0.1;
+  z-index: 1;
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-10deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* ====== ABOUT ====== */
+.about { background: var(--white); }
+.about-grid {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+.about-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  position: relative;
+}
+.about-img {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.about-img:first-child {
+  grid-row: span 2;
+}
+.about-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.about-img:hover img { transform: scale(1.04); }
+.about-stamp {
+  position: absolute;
+  bottom: -20px;
+  right: -10px;
+  width: 110px;
+  height: 110px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+  box-shadow: var(--shadow-md);
+  transform: rotate(-8deg);
+  z-index: 2;
+  padding: 0.8rem;
+}
+.about-text p {
+  color: var(--dark-soft);
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+.about-pets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+.pet-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: var(--secondary);
+  border-radius: 50px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--dark);
+}
+
+/* ====== WHY US ====== */
+.why { background: var(--light); position: relative; }
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+.why-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  transition: all var(--transition);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.why-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(232, 131, 107, 0.1);
+  transform: translateY(-3px);
+}
+.why-card:hover::before { opacity: 1; }
+.why-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  background: var(--secondary);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: background var(--transition);
+}
+.why-card:hover .why-icon { background: var(--primary); }
+.why-card:hover .why-icon svg path { fill: white; }
+.why-icon svg { width: 26px; height: 26px; }
+.why-icon svg path { fill: var(--primary); transition: fill var(--transition); }
+.why-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+.why-card p {
+  color: var(--dark-soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ====== SERVICES ====== */
+.services { background: var(--white); }
+.services-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.service-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--light);
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.service-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+}
+.service-img {
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+.service-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.service-card:hover .service-img img { transform: scale(1.06); }
+.service-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.35rem 0.9rem;
+  background: var(--white);
+  border-radius: 50px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--primary);
+  box-shadow: var(--shadow-soft);
+}
+.service-body { padding: 1.5rem; }
+.service-body h3 { margin-bottom: 0.6rem; }
+.service-body p {
+  color: var(--dark-soft);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+.service-price {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--primary);
+}
+.service-price small {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--dark-soft);
+}
+
+/* ====== PROCESS / TIMELINE ====== */
+.process { background: var(--secondary); position: relative; overflow: hidden; }
+.process .blob { opacity: 0.2; }
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 2.5rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 30px;
+  bottom: 30px;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--primary), var(--accent));
+  border-radius: 3px;
+}
+.timeline-step {
+  position: relative;
+  padding: 1.5rem 0;
+}
+.timeline-dot {
+  position: absolute;
+  left: -2.5rem;
+  top: 1.8rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--primary);
+  z-index: 1;
+  transition: all var(--transition);
+}
+.timeline-step:hover .timeline-dot {
+  background: var(--primary);
+  color: var(--white);
+  transform: scale(1.15);
+}
+.timeline-step h3 { margin-bottom: 0.3rem; font-size: 1.15rem; }
+.timeline-step p { color: var(--dark-soft); font-size: 0.95rem; }
+
+/* ====== PRICING ====== */
+.pricing { background: var(--light); }
+.pricing-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.pricing-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: all var(--transition);
+}
+.pricing-card:hover { box-shadow: var(--shadow-md); }
+.pricing-card.featured {
+  border: 2px solid var(--primary);
+  position: relative;
+}
+.pricing-card.featured::before {
+  content: 'Nejoblíbenější';
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  padding: 0.3rem 0.8rem;
+  background: var(--primary);
+  color: white;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+.pricing-header {
+  padding: 1.8rem 1.8rem 1rem;
+  text-align: center;
+}
+.pricing-icon { font-size: 2.5rem; margin-bottom: 0.5rem; display: block; }
+.pricing-header h3 { margin-bottom: 0.3rem; }
+.pricing-header p { color: var(--dark-soft); font-size: 0.9rem; }
+.pricing-body { padding: 0 1.8rem 1.8rem; }
+.pricing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px dashed rgba(61,61,61,0.1);
+}
+.pricing-row:last-child { border-bottom: none; }
+.pricing-row span:first-child { color: var(--dark-soft); font-size: 0.95rem; }
+.pricing-row span:last-child {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  color: var(--dark);
+}
+.pricing-row .free {
+  color: var(--accent);
+  font-weight: 700;
+}
+.pricing-row .included {
+  color: var(--primary);
+  font-weight: 700;
+}
+.pricing-note {
+  text-align: center;
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  background: var(--secondary);
+  border-radius: var(--radius);
+  color: var(--dark-soft);
+  font-size: 0.95rem;
+}
+.pricing-note strong { color: var(--dark); }
+
+/* ====== GALLERY ====== */
+.gallery { background: var(--white); }
+.gallery-grid {
+  columns: 2;
+  column-gap: 0.8rem;
+}
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 0.8rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+.gallery-item img {
+  width: 100%;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(232, 131, 107, 0);
+  transition: background 0.3s ease;
+}
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-item:hover::after { background: rgba(232, 131, 107, 0.1); }
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(15, 15, 15, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  padding: 1rem;
+}
+.lightbox.open { opacity: 1; pointer-events: auto; }
+.lightbox img {
+  max-width: 90vw;
+  max-height: 88vh;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  transition: transform 0.35s ease;
+}
+.lightbox.open img { transform: scale(1); }
+.lightbox-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  transition: background 0.3s;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.2); }
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  transition: background 0.3s;
+}
+.lightbox-nav:hover { background: rgba(255,255,255,0.25); }
+.lightbox-prev { left: 1rem; }
+.lightbox-next { right: 1rem; }
+
+/* ====== CONTACT ====== */
+.contact { background: var(--secondary); position: relative; overflow: hidden; }
+.contact-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+.contact-methods {
+  display: grid;
+  gap: 1rem;
+}
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem 1.5rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  transition: all var(--transition);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid transparent;
+}
+.contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(232, 131, 107, 0.15);
+}
+.contact-card-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-card-icon svg { width: 24px; height: 24px; }
+.contact-card-icon.phone { background: #e8f5e9; }
+.contact-card-icon.phone svg path { fill: #43a047; }
+.contact-card-icon.email { background: #fff3e0; }
+.contact-card-icon.email svg path { fill: #ef6c00; }
+.contact-card-icon.whatsapp { background: #e8f5e9; }
+.contact-card-icon.whatsapp svg path { fill: #25d366; }
+.contact-card-icon.messenger { background: #e3f2fd; }
+.contact-card-icon.messenger svg path { fill: #0084ff; }
+.contact-card-text strong {
+  display: block;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+.contact-card-text span { color: var(--dark-soft); font-size: 0.9rem; }
+.contact-info {
+  padding: 2rem;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+.contact-info h3 { margin-bottom: 1rem; }
+.contact-info p {
+  color: var(--dark-soft);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.location-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--secondary);
+  border-radius: 50px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+.location-tag svg { width: 18px; height: 18px; }
+
+/* ====== FOOTER ====== */
+.footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.6);
+  padding: 3rem 0 2rem;
+  text-align: center;
+}
+.footer-logo { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+.footer-logo svg { width: 32px; height: 32px; }
+.footer-logo span {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--white);
+}
+.footer p { font-size: 0.85rem; }
+.footer a { color: var(--primary-light); transition: color 0.3s; }
+.footer a:hover { color: var(--primary); }
+.footer-heart { color: var(--primary); }
+
+/* ====== RESPONSIVE ====== */
+@media (min-width: 768px) {
+  .container { padding: 0 2rem; }
+  section { padding: 6rem 0; }
+  .nav-links { display: flex; }
+  .menu-toggle { display: none; }
+  .about-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .why-grid { grid-template-columns: 1fr 1fr; }
+  .services-grid { grid-template-columns: repeat(3, 1fr); }
+  .service-img { height: 200px; }
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { columns: 3; column-gap: 1rem; }
+  .gallery-item { margin-bottom: 1rem; }
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+  .timeline { padding-left: 3rem; }
+  .timeline-dot { left: -3rem; }
+  .hero-content { padding: 2rem 2rem 5rem; }
+}
+
+@media (min-width: 1024px) {
+  section { padding: 7rem 0; }
+  .about-grid { gap: 5rem; }
+  .why-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .services-grid { gap: 2rem; }
+  .service-img { height: 260px; }
+  .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+  .gallery-grid { columns: 4; }
+  .hero-content { padding: 2rem 2rem 6rem; }
+}
+
+@media (min-width: 1280px) {
+  .container { padding: 0 2.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====== HEADER ====== -->
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="#hero" class="logo">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 44C24 44 6 33 6 19C6 12 11 6 18 6C21.5 6 24 8 24 8C24 8 26.5 6 30 6C37 6 42 12 42 19C42 33 24 44 24 44Z" fill="#E8836B" opacity="0.15"/>
+          <path d="M24 40C24 40 10 31 10 20C10 14.5 14 10 19.5 10C22 10 24 11.5 24 11.5C24 11.5 26 10 28.5 10C34 10 38 14.5 38 20C38 31 24 40 24 40Z" fill="#E8836B"/>
+          <circle cx="17" cy="18" r="3" fill="#d46a52"/>
+          <circle cx="31" cy="18" r="3" fill="#d46a52"/>
+          <circle cx="24" cy="24" r="3.5" fill="#d46a52"/>
+          <circle cx="19" cy="28" r="2.5" fill="#d46a52"/>
+          <circle cx="29" cy="28" r="2.5" fill="#d46a52"/>
+          <path d="M18 20L14 16" stroke="#FFF9F5" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M30 20L34 16" stroke="#FFF9F5" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="logo-text">
+          Hlídání u Pavlínky
+          <span>Litoměřice</span>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <div class="nav-links">
+          <a href="#about">O nás</a>
+          <a href="#why">Proč my</a>
+          <a href="#services">Služby</a>
+          <a href="#pricing">Ceník</a>
+          <a href="#gallery">Galerie</a>
+          <a href="#contact">Kontakt</a>
+        </div>
+        <a href="#contact" class="btn-cta" style="display:none;">Napište nám</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMenu()">O nás</a>
+  <a href="#why" onclick="closeMenu()">Proč právě my</a>
+  <a href="#services" onclick="closeMenu()">Služby</a>
+  <a href="#pricing" onclick="closeMenu()">Ceník</a>
+  <a href="#gallery" onclick="closeMenu()">Galerie</a>
+  <a href="#contact" onclick="closeMenu()">Kontakt</a>
+  <a href="tel:+420733285598" class="btn-cta" onclick="closeMenu()">Zavolejte nám</a>
+</div>
+
+<!-- ====== HERO ====== -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img src="foto/web/PXL_20250719_172824477.jpg" alt="Eliška a Amálka na kopci s výhledem na Litoměřice" loading="eager">
+  </div>
+  <svg class="hero-paw" width="120" height="120" viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="17" cy="12" r="5" /><circle cx="31" cy="12" r="5" />
+    <circle cx="10" cy="22" r="4.5" /><circle cx="38" cy="22" r="4.5" />
+    <path d="M24 42C24 42 12 34 12 26C12 22 16 20 20 22C22 23 24 26 24 26C24 26 26 23 28 22C32 20 36 22 36 26C36 34 24 42 24 42Z"/>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white"/></svg>
+      Litoměřice a okolí
+    </div>
+    <h1>Hlídání<br>u Pavlínky</h1>
+    <p class="hero-sub">Domácí hlídání s láskou v Litoměřicích</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn-cta">Napište nám</a>
+      <a href="#about" class="btn-cta btn-cta-outline">Zjistit více</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== O NÁS ====== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-images reveal">
+        <div class="about-img">
+          <img src="foto/web/IMG20260331160040~3.jpg" alt="Pavlínka drží malé štěňátko beagla" loading="lazy">
+        </div>
+        <div class="about-img">
+          <img src="foto/web/20250615_085014.jpg" alt="Amálka a Eliška na gauči" loading="lazy">
+        </div>
+        <div class="about-img">
+          <img src="foto/web/PXL_20251029_122317881.jpg" alt="Amálka s kočičkou v pelíšku" loading="lazy">
+        </div>
+        <div class="about-stamp">S&nbsp;láskou od roku 2026</div>
+      </div>
+      <div class="about-text reveal">
+        <span class="section-label">O nás</span>
+        <h2 class="section-title">Žádný psí hotel.<br>U nás je to jako doma.</h2>
+        <p>Ahoj, jsem Pavlínka a zvířata jsou celý můj svět. Společně s rodinou jsme se rozhodli otevřít náš domov i vašim mazlíčkům — protože víme, jak těžké je svěřit svého miláčka do cizích rukou.</p>
+        <p>U nás vaše zvířátko nebude v kotci ani v boxu. Bude s námi — na gauči, na zahradě, na procházkách po kopcích kolem Litoměřic. Přesně tak, jako by bylo doma.</p>
+        <p>Hlídáme vždy jen omezený počet zvířátek, aby se každému dostalo maximum pozornosti a lásky.</p>
+        <div class="about-pets">
+          <span class="pet-tag">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 3 17 3 10C3 7 5.5 4 9 4C11 4 12 5.5 12 5.5C12 5.5 13 4 15 4C18.5 4 21 7 21 10C21 17 12 22 12 22Z" fill="#E8836B"/></svg>
+            Amálka — beagle
+          </span>
+          <span class="pet-tag">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 3 17 3 10C3 7 5.5 4 9 4C11 4 12 5.5 12 5.5C12 5.5 13 4 15 4C18.5 4 21 7 21 10C21 17 12 22 12 22Z" fill="#E8836B"/></svg>
+            Eliška — malá psinka
+          </span>
+          <span class="pet-tag">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 3 17 3 10C3 7 5.5 4 9 4C11 4 12 5.5 12 5.5C12 5.5 13 4 15 4C18.5 4 21 7 21 10C21 17 12 22 12 22Z" fill="#5B8C5A"/></svg>
+            Kočička — ryzáček
+          </span>
+          <span class="pet-tag">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 3 17 3 10C3 7 5.5 4 9 4C11 4 12 5.5 12 5.5C12 5.5 13 4 15 4C18.5 4 21 7 21 10C21 17 12 22 12 22Z" fill="#E8836B"/></svg>
+            Morče
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PROČ PRÁVĚ MY ====== -->
+<section class="why" id="why">
+  <div class="blob blob-primary" style="width:300px;height:300px;top:-100px;right:-100px;"></div>
+  <div class="blob blob-accent" style="width:250px;height:250px;bottom:-80px;left:-80px;"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+      <span class="section-label">Proč právě my</span>
+      <h2 class="section-title">Co nás odlišuje</h2>
+      <p class="section-desc">Nejsme velký psí hotel. Jsme rodina, která miluje zvířata a otevírá jim svůj domov.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9.5L12 4L21 9.5V19.5C21 20.33 20.33 21 19.5 21H4.5C3.67 21 3 20.33 3 19.5V9.5Z M9 21V13H15V21" fill="none" stroke="#E8836B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <h3>Rodinné prostředí, ne hotel</h3>
+          <p>Vaše zvířátko spinká na gauči, ne v kleci. U nás je to opravdu jako doma.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" fill="none" stroke="#E8836B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <h3>Omezený počet</h3>
+          <p>Staráme se maximálně o 2–3 zvířátka naráz. Každé dostane naši plnou pozornost.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22C12 22 20 16 20 10C20 6 16 2 12 2C8 2 4 6 4 10C4 16 12 22 12 22Z" fill="none" stroke="#E8836B" stroke-width="2"/><circle cx="12" cy="10" r="3" fill="none" stroke="#E8836B" stroke-width="2"/></svg>
+        </div>
+        <div>
+          <h3>3x denně procházky</h3>
+          <p>Ráno, v poledne i večer — včetně dlouhé procházky do přírody kolem Litoměřic.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-4">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm3 16h12M6 3v16M18 3v16M3 9h18M3 15h18" fill="none" stroke="#E8836B" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <h3>Prostorná zahrada</h3>
+          <p>Oplocená zahrada pro volný pohyb, hry a odpočinek na čerstvém vzduchu.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22C12 22 3 17 3 10C3 7 5.5 4 9 4C11 4 12 5.5 12 5.5C12 5.5 13 4 15 4C18.5 4 21 7 21 10C21 17 12 22 12 22Z" fill="none" stroke="#E8836B" stroke-width="2"/></svg>
+        </div>
+        <div>
+          <h3>Naši kamarádi</h3>
+          <p>Amálka, Eliška, kočička a morče budou vašemu mazlíčkovi skvělými společníky.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="#E8836B" stroke-width="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="#E8836B"/><path d="M21 15L16 10L5 21" fill="none" stroke="#E8836B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <h3>Fotoreporty v ceně</h3>
+          <p>Každý den dostanete fotky a krátké video, ať máte klid a radost.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="#E8836B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <h3>Procházky v přírodě</h3>
+          <p>Kopce, lesy a údolí kolem Litoměřic — to jsou naše každodenní trasy.</p>
+        </div>
+      </div>
+      <div class="why-card reveal reveal-delay-4">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke="#E8836B" stroke-width="2"/></svg>
+        </div>
+        <div>
+          <h3>Láska a starostlivost</h3>
+          <p>Ke každému zvířátku přistupujeme jako k vlastnímu. S láskou a péčí.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SLUŽBY ====== -->
+<section class="services" id="services">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+      <span class="section-label">Naše služby</span>
+      <h2 class="section-title">Postaráme se o vašeho mazlíčka</h2>
+      <p class="section-desc">Hlídáme pejsky, kočičky i drobná zvířátka. Vždy u nás doma, v rodinném prostředí.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-img">
+          <img src="foto/web/IMG20260308100443~2.jpg" alt="Amálka s kamarádem na procházce v kopcích" loading="lazy">
+          <span class="service-tag">Nejoblíbenější</span>
+        </div>
+        <div class="service-body">
+          <h3>Hlídání pejsků</h3>
+          <p>Celodenní hlídání s noclehem. Tři procházky denně, prostorná zahrada, společnost našich zvířátek a spousta mazlení.</p>
+          <span class="service-price">od 350 Kč <small>/ den</small></span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-img">
+          <img src="foto/web/PXL_20251029_122317881.jpg" alt="Beagle Amálka a kočička spí v pelíšku" loading="lazy">
+        </div>
+        <div class="service-body">
+          <h3>Hlídání kočiček</h3>
+          <p>Vaše kočička bude mít u nás svůj klídek — s naší kočičkou si bude rozumět a bude v teple domova.</p>
+          <span class="service-price">250 Kč <small>/ den</small></span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-img">
+          <img src="foto/web/IMG_20260306_205352.jpg" alt="Amálka sleduje morčátko v kleci" loading="lazy">
+        </div>
+        <div class="service-body">
+          <h3>Drobná zvířátka</h3>
+          <p>Morčata, křečky, králíčky — postaráme se o ně s vaší vlastní klíckou. U nás budou v bezpečí.</p>
+          <span class="service-price">150 Kč <small>/ den</small></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== JAK TO PROBÍHÁ ====== -->
+<section class="process" id="process">
+  <div class="blob blob-primary" style="width:200px;height:200px;top:50px;right:-50px;"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+      <span class="section-label">Jak to probíhá</span>
+      <h2 class="section-title">Od prvního kontaktu po šťastné shledání</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-step">
+        <div class="timeline-dot">1</div>
+        <h3>Ozvěte se nám</h3>
+        <p>Zavolejte, napište e-mail nebo zprávu na WhatsApp. Řeknete nám o svém mazlíčkovi a domluvíme termín.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">2</div>
+        <h3>Bezplatná schůzka</h3>
+        <p>Přijedete k nám s mazlíčkem na seznámení. Zvířátka se navzájem osahají a vy uvidíte, kde budou bydlet.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">3</div>
+        <h3>Předání mazlíčka</h3>
+        <p>V domluvený den přivezete mazlíčka i s jeho věcmi a instrukcemi ke krmení a péči.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">4</div>
+        <h3>Denní fotoreporty</h3>
+        <p>Každý den dostanete fotky a krátké video z procházek, her a odpočinku. Ať víte, že je všechno v pořádku.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">5</div>
+        <h3>Šťastné vyzvedávání</h3>
+        <p>Přijedete si pro spokojeného a vysportovaného mazlíčka. A možná se nám bude trochu stýskat...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CENÍK ====== -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+      <span class="section-label">Ceník</span>
+      <h2 class="section-title">Přehledné a férové ceny</h2>
+      <p class="section-desc">Žádné skryté poplatky. Denní fotoreport a úvodní schůzka jsou vždy zdarma.</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Dogs -->
+      <div class="pricing-card featured reveal reveal-delay-1">
+        <div class="pricing-header">
+          <span class="pricing-icon">🐕</span>
+          <h3>Pejsci</h3>
+          <p>Hlídání s noclehem (24h)</p>
+        </div>
+        <div class="pricing-body">
+          <div class="pricing-row">
+            <span>Malý pes (do 10 kg)</span>
+            <span>350 Kč/den</span>
+          </div>
+          <div class="pricing-row">
+            <span>Střední pes (10–25 kg)</span>
+            <span>400 Kč/den</span>
+          </div>
+          <div class="pricing-row">
+            <span>Velký pes (nad 25 kg)</span>
+            <span>450 Kč/den</span>
+          </div>
+          <div class="pricing-row">
+            <span>Druhý pes stejného majitele</span>
+            <span class="included">−50 %</span>
+          </div>
+        </div>
+      </div>
+      <!-- Cats -->
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-header">
+          <span class="pricing-icon">🐱</span>
+          <h3>Kočičky</h3>
+          <p>Hlídání u nás doma</p>
+        </div>
+        <div class="pricing-body">
+          <div class="pricing-row">
+            <span>Hlídání kočky</span>
+            <span>250 Kč/den</span>
+          </div>
+          <div class="pricing-row">
+            <span>Druhá kočka stejného majitele</span>
+            <span class="included">−50 %</span>
+          </div>
+        </div>
+      </div>
+      <!-- Small animals + extras -->
+      <div class="pricing-card reveal reveal-delay-3">
+        <div class="pricing-header">
+          <span class="pricing-icon">🐹</span>
+          <h3>Drobná zvířátka</h3>
+          <p>S vaší vlastní klíckou</p>
+        </div>
+        <div class="pricing-body">
+          <div class="pricing-row">
+            <span>Morče, křeček, králíček…</span>
+            <span>150 Kč/den</span>
+          </div>
+          <div class="pricing-row" style="margin-top:1rem;padding-top:1rem;border-top:2px solid var(--secondary);">
+            <span><strong>Doplňkové služby</strong></span>
+            <span></span>
+          </div>
+          <div class="pricing-row">
+            <span>Podávání léků</span>
+            <span>+50 Kč/den</span>
+          </div>
+          <div class="pricing-row">
+            <span>Doprava</span>
+            <span>5 Kč/km</span>
+          </div>
+          <div class="pricing-row">
+            <span>Úvodní schůzka</span>
+            <span class="free">ZDARMA</span>
+          </div>
+          <div class="pricing-row">
+            <span>Denní fotoreport</span>
+            <span class="included">V CENĚ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-note reveal">
+      <strong>Tip:</strong> Úvodní schůzka je vždy zdarma a nezávazná. Přijeďte se i s mazlíčkem podívat, jak to u nás vypadá.
+    </div>
+  </div>
+</section>
+
+<!-- ====== GALERIE ====== -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+      <span class="section-label">Galerie</span>
+      <h2 class="section-title">Nahlédněte k nám</h2>
+      <p class="section-desc">Tak to u nás vypadá — na procházkách, na zahradě i doma na gauči.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item" onclick="openLightbox(0)">
+        <img src="foto/web/IMG20260307155445.jpg" alt="Amálka na kopci s výhledem do údolí" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(1)">
+        <img src="foto/web/IMG20260318092927.jpg" alt="Beagle na zahradě" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(2)">
+        <img src="foto/web/IMG20260221075751.jpg" alt="Kočička zblízka" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(3)">
+        <img src="foto/web/IMG20260328143918_01.jpg" alt="Procházka lesem s Amálkou" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(4)">
+        <img src="foto/web/IMG20260308100227.jpg" alt="Pejsci si hrají v přírodě" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(5)">
+        <img src="foto/web/PXL_20250630_073511868.jpg" alt="Amálka s hračkou na zahradě" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(6)">
+        <img src="foto/web/IMG_20260218_150233.jpg" alt="Kočička u misek" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(7)">
+        <img src="foto/web/IMG20260308100622.jpg" alt="Pejsci běží v poli" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(8)">
+        <img src="foto/web/Screenshot_20250927-184255.Facebook.jpg" alt="Amálka hlídá spící kotě" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(9)">
+        <img src="foto/web/IMG_20260222_204226.jpg" alt="Kočička sleduje klec s morčetem" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(10)">
+        <img src="foto/web/IMG20260328144045.jpg" alt="Rodinná procházka" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(11)">
+        <img src="foto/web/Messenger_creation_31964BC6-65E2-4D58-9B11-6D9.jpg" alt="Štěňátko beagla" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(12)">
+        <img src="foto/web/IMG20260308094956.jpg" alt="Beagle v poli" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(13)">
+        <img src="foto/web/20250517_080917.jpg" alt="Dětská radost se štěňátkem" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(14)">
+        <img src="foto/web/PXL_20250308_160017248~2.jpg" alt="Štěňátko na zahradě" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(15)">
+        <img src="foto/web/IMG20260331152542.jpg" alt="Pavlínka s Amálkou" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== KONTAKT ====== -->
+<section class="contact" id="contact">
+  <div class="blob blob-secondary" style="width:300px;height:300px;top:-100px;left:-100px;"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+      <span class="section-label">Kontakt</span>
+      <h2 class="section-title">Ozvěte se nám</h2>
+      <p class="section-desc">Rádi vám odpovíme na všechny dotazy. Nebojte se zeptat na cokoliv.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-methods reveal">
+        <a href="tel:+420733285598" class="contact-card">
+          <div class="contact-card-icon phone">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="contact-card-text">
+            <strong>Telefon</strong>
+            <span>733 285 598</span>
+          </div>
+        </a>
+        <a href="mailto:pavlina.dolejsova92@gmail.com" class="contact-card">
+          <div class="contact-card-icon email">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" fill="none" stroke="#ef6c00" stroke-width="2"/><path d="M22 6l-10 7L2 6" fill="none" stroke="#ef6c00" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="contact-card-text">
+            <strong>E-mail</strong>
+            <span>pavlina.dolejsova92@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://wa.me/420733285598" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-card-icon whatsapp">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" fill="none" stroke="#25d366" stroke-width="1.5"/></svg>
+          </div>
+          <div class="contact-card-text">
+            <strong>WhatsApp</strong>
+            <span>733 285 598</span>
+          </div>
+        </a>
+        <div class="contact-card" style="opacity:0.6;cursor:default;">
+          <div class="contact-card-icon messenger">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.2 5.42 3.16 7.17.16.15.26.36.27.58l.05 1.83c.02.56.57.95 1.1.78l2.04-.8c.18-.07.38-.08.57-.03.86.24 1.78.37 2.81.37 5.64 0 10-4.13 10-9.7C22 6.13 17.64 2 12 2z"/><path d="M7 13.5l2.5-4 3 2.5 2.5-2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+          </div>
+          <div class="contact-card-text">
+            <strong>Messenger</strong>
+            <span>Připravujeme</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-info reveal">
+        <h3>Kde nás najdete</h3>
+        <p>Hlídáme v rodinném domě s prostornou zahradou v Litoměřicích. Nabízíme hlídání pro okolí včetně Lovosic, Terezína, Roudnice nad Labem a Ústí nad Labem.</p>
+        <p>Možnost dovozu a vyzvednutí vašeho mazlíčka za 5 Kč/km.</p>
+        <p>Úvodní schůzka je vždy <strong>zdarma a nezávazná</strong> — přijeďte se podívat, jak to u nás vypadá!</p>
+        <div class="location-tag">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="#E8836B" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="#E8836B" stroke-width="2"/></svg>
+          Litoměřice a okolí
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+        <path d="M24 40C24 40 10 31 10 20C10 14.5 14 10 19.5 10C22 10 24 11.5 24 11.5C24 11.5 26 10 28.5 10C34 10 38 14.5 38 20C38 31 24 40 24 40Z" fill="#E8836B"/>
+        <circle cx="17" cy="18" r="3" fill="#d46a52"/><circle cx="31" cy="18" r="3" fill="#d46a52"/>
+        <circle cx="24" cy="24" r="3.5" fill="#d46a52"/><circle cx="19" cy="28" r="2.5" fill="#d46a52"/>
+        <circle cx="29" cy="28" r="2.5" fill="#d46a52"/>
+      </svg>
+      <span>Hlídání u Pavlínky</span>
+    </div>
+    <p>Domácí hlídání s láskou v Litoměřicích</p>
+    <p style="margin-top:0.5rem;">
+      <a href="tel:+420733285598">733 285 598</a> &middot;
+      <a href="mailto:pavlina.dolejsova92@gmail.com">pavlina.dolejsova92@gmail.com</a>
+    </p>
+    <p style="margin-top:1.5rem;opacity:0.5;font-size:0.8rem;">
+      &copy; 2026 Hlídání u Pavlínky. Vytvořeno s <span class="footer-heart">&hearts;</span> pro všechny čtyřnožce.
+    </p>
+  </div>
+</footer>
+
+<!-- ====== LIGHTBOX ====== -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Zavřít">&times;</button>
+  <button class="lightbox-nav lightbox-prev" onclick="prevImage()" aria-label="Předchozí">&#8249;</button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="nextImage()" aria-label="Další">&#8250;</button>
+</div>
+
+<script>
+/* ====== HEADER SCROLL ====== */
+const header = document.getElementById('header');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ====== MOBILE MENU ====== */
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('active');
+  mobileNav.classList.toggle('open');
+  document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+});
+function closeMenu() {
+  menuToggle.classList.remove('active');
+  mobileNav.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ====== SCROLL REVEAL ====== */
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+
+/* ====== LIGHTBOX ====== */
+const galleryImages = [
+  'foto/web/IMG20260307155445.jpg',
+  'foto/web/IMG20260318092927.jpg',
+  'foto/web/IMG20260221075751.jpg',
+  'foto/web/IMG20260328143918_01.jpg',
+  'foto/web/IMG20260308100227.jpg',
+  'foto/web/PXL_20250630_073511868.jpg',
+  'foto/web/IMG_20260218_150233.jpg',
+  'foto/web/IMG20260308100622.jpg',
+  'foto/web/Screenshot_20250927-184255.Facebook.jpg',
+  'foto/web/IMG_20260222_204226.jpg',
+  'foto/web/IMG20260328144045.jpg',
+  'foto/web/Messenger_creation_31964BC6-65E2-4D58-9B11-6D9.jpg',
+  'foto/web/IMG20260308094956.jpg',
+  'foto/web/20250517_080917.jpg',
+  'foto/web/PXL_20250308_160017248~2.jpg',
+  'foto/web/IMG20260331152542.jpg'
+];
+let currentImg = 0;
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+
+function openLightbox(idx) {
+  currentImg = idx;
+  lightboxImg.src = galleryImages[idx];
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function nextImage() {
+  currentImg = (currentImg + 1) % galleryImages.length;
+  lightboxImg.src = galleryImages[currentImg];
+}
+function prevImage() {
+  currentImg = (currentImg - 1 + galleryImages.length) % galleryImages.length;
+  lightboxImg.src = galleryImages[currentImg];
+}
+
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'ArrowLeft') prevImage();
+});
+
+/* Touch swipe for lightbox */
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+lightbox.addEventListener('touchend', (e) => {
+  const diff = e.changedTouches[0].screenX - touchStartX;
+  if (Math.abs(diff) > 50) { diff > 0 ? prevImage() : nextImage(); }
+}, { passive: true });
+
+/* ====== SMOOTH SCROLL (for Safari) ====== */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+/* ====== CTA button show on desktop ====== */
+const ctaBtn = document.querySelector('.nav .btn-cta');
+if (window.innerWidth >= 768 && ctaBtn) ctaBtn.style.display = 'inline-flex';
+window.addEventListener('resize', () => {
+  if (ctaBtn) ctaBtn.style.display = window.innerWidth >= 768 ? 'inline-flex' : 'none';
+});
+</script>
+</body>
+</html>

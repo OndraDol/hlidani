@@ -1,0 +1,3 @@
+foto_preview/
+foto/*.jpg
+!foto/web/
