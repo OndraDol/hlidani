@@ -820,6 +820,25 @@ body::after {
 }
 .pricing-note strong { color: var(--dark); }
 
+/* ====== TESTIMONIALS ====== */
+.testimonials { background: var(--light); }
+.testimonials-iframe-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 100%;
+}
+.testimonials-iframe-wrap iframe {
+  border: none;
+  overflow: hidden;
+  max-width: 100%;
+  width: 500px;
+  height: 810px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  background: var(--white);
+}
+
 /* ====== GALLERY ====== */
 .gallery { background: var(--white); }
 .gallery-grid {
@@ -1096,6 +1115,7 @@ body::after {
           <a href="#services">Služby</a>
           <a href="#pricing">Ceník</a>
           <a href="#gallery">Galerie</a>
+          <a href="#testimonials">Reference</a>
           <a href="#contact">Kontakt</a>
         </div>
         <a href="#contact" class="btn-cta" style="display:none;">Napište mi</a>
@@ -1114,6 +1134,7 @@ body::after {
   <a href="#services" onclick="closeMenu()">Služby</a>
   <a href="#pricing" onclick="closeMenu()">Ceník</a>
   <a href="#gallery" onclick="closeMenu()">Galerie</a>
+  <a href="#testimonials" onclick="closeMenu()">Reference</a>
   <a href="#contact" onclick="closeMenu()">Kontakt</a>
   <a href="tel:+420733285598" class="btn-cta" onclick="closeMenu()">Zavolejte mi</a>
 </div>
@@ -1150,7 +1171,7 @@ body::after {
           <img src="foto/web/IMG20260328143918_01.jpg" alt="Pavlínka na procházce s Amálkou v lese" loading="lazy">
         </div>
         <div class="about-img">
-          <img src="foto/web/20250615_085014.jpg?v=2" alt="Amálka a Eliška v pelíšku" loading="lazy">
+          <img src="foto/web/20250615_085014.jpg?v=2" alt="Amálka a Eliška sedí spolu na pohovce" loading="lazy">
         </div>
         <div class="about-img">
           <img src="foto/web/PXL_20251029_122317881.jpg?v=2" alt="Amálka s kocourkem v pelíšku" loading="lazy">
@@ -1170,7 +1191,7 @@ body::after {
           </span>
           <span class="pet-tag">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 3 17 3 10C3 7 5.5 4 9 4C11 4 12 5.5 12 5.5C12 5.5 13 4 15 4C18.5 4 21 7 21 10C21 17 12 22 12 22Z" fill="#E8836B"/></svg>
-            Eliška — mix :)
+            Rosaline — beagle
           </span>
           <span class="pet-tag">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22C12 22 3 17 3 10C3 7 5.5 4 9 4C11 4 12 5.5 12 5.5C12 5.5 13 4 15 4C18.5 4 21 7 21 10C21 17 12 22 12 22Z" fill="#5B8C5A"/></svg>
@@ -1239,7 +1260,7 @@ body::after {
         </div>
         <div>
           <h3>Moji kamarádi</h3>
-          <p>Amálka, Eliška, kocourek a morče budou vašemu mazlíčkovi skvělými společníky.</p>
+          <p>Amálka, Rosaline, kočky a morče budou vašemu mazlíčkovi skvělými společníky.</p>
         </div>
       </div>
       <div class="why-card reveal reveal-delay-2">
@@ -1279,7 +1300,7 @@ body::after {
     <div style="text-align:center;margin-bottom:3rem;" class="reveal">
       <span class="section-label">Moje služby</span>
       <h2 class="section-title">Postarám se o vašeho mazlíčka</h2>
-      <p class="section-desc">Hlídám pejsky, kocourky i drobná zvířátka. Vždy u mě doma, v rodinném prostředí.</p>
+      <p class="section-desc">Hlídám pejsky, kočky i drobná zvířátka. Vždy u mě doma, v rodinném prostředí.</p>
     </div>
     <div class="services-grid">
       <div class="service-card reveal reveal-delay-1">
@@ -1298,8 +1319,8 @@ body::after {
           <img src="foto/web/PXL_20251029_122317881.jpg?v=2" alt="Beagle Amálka a kocourek spí v pelíšku" loading="lazy">
         </div>
         <div class="service-body">
-          <h3>Hlídání kocourků</h3>
-          <p>Váš kocourek bude mít u mě svůj klídek — s mým kocourkem si bude rozumět a bude v teple domova.</p>
+          <h3>Hlídání koček</h3>
+          <p>Vaše kočka bude mít u mě svůj klídek — s mým kocourkem si bude rozumět a bude v teple domova.</p>
           <span class="service-price">250 Kč <small>/ den</small></span>
         </div>
       </div>
@@ -1506,7 +1527,46 @@ body::after {
       <div class="gallery-item" onclick="openLightbox(15)">
         <img src="foto/web/IMG20260331152542.jpg" alt="Pavlínka s Amálkou" loading="lazy">
       </div>
+      <div class="gallery-item" onclick="openLightbox(16)">
+        <img src="foto/web/IMG_20260501_112042.jpg" alt="Amálka na kopci s výhledem na České středohoří" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(17)">
+        <img src="foto/web/IMG20260505084825.jpg" alt="Štěně Rosaline na zahradě" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(18)">
+        <img src="foto/web/IMG20260505081516.jpg" alt="Amálka a štěně Rosaline odpočívají v pelíšku" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(19)">
+        <img src="foto/web/IMG20260505110918.jpg" alt="Amálka se seznamuje s Rosaline na zahradě" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(20)">
+        <img src="foto/web/IMG20260505081745.jpg" alt="Amálka si dovádí s Rosaline v pelíšku" loading="lazy">
+      </div>
+      <div class="gallery-item" onclick="openLightbox(21)">
+        <img src="foto/web/IMG20260502174449.jpg" alt="Amálka spí na pohovce v obýváku" loading="lazy">
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- ====== REFERENCE ====== -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;" class="reveal">
+      <span class="section-label">Reference</span>
+      <h2 class="section-title">Co o mně píší klienti</h2>
+      <p class="section-desc">Recenze přímo od majitelů zvířátek, které jsem hlídala.</p>
+    </div>
+    <div class="testimonials-iframe-wrap reveal">
+      <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fmarketa.hermanova01%2Fposts%2Fpfbid02oaJvcjS3pHGpWpXfpLveoozELkzcusFsa6XjHFvMQRHDSsKkyTved82Jd5VUMAMAl&show_text=true&width=500"
+              width="500" height="810"
+              loading="lazy" scrolling="no" frameborder="0" allowfullscreen="true"
+              title="Recenze klientky Markéty Heřmanové na Facebooku"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    </div>
+    <p style="text-align:center;margin-top:2.5rem;" class="reveal">
+      <a href="https://www.facebook.com/profile.php?id=61575346780907" target="_blank" rel="noopener" class="btn-cta btn-cta-outline">Více recenzí na Facebooku</a>
+    </p>
   </div>
 </section>
 
@@ -1614,7 +1674,7 @@ body::after {
       <p><strong>Provozovatel:</strong> Pavlína Dolejšová, IČO: 24929999<br>Mánesova 1243/8, 412 01 Litoměřice<br>E-mail: <a href="mailto:pavlina.dolejsova92@gmail.com">pavlina.dolejsova92@gmail.com</a>, tel.: <a href="tel:+420733285598">733 285 598</a></p>
       <p style="margin-top:1rem;"><strong>Cookies:</strong> Tento web nepoužívá žádné cookies.</p>
       <p style="margin-top:1rem;"><strong>Analytika:</strong> Pro anonymní měření návštěvnosti používáme službu GoatCounter, která neukládá osobní údaje, nepoužívá cookies a IP adresy zpracovává pouze v anonymizované podobě.</p>
-      <p style="margin-top:1rem;"><strong>Třetí strany:</strong> Web nenačítá žádné externí zdroje, které by zpracovávaly osobní údaje návštěvníků.</p>
+      <p style="margin-top:1rem;"><strong>Třetí strany:</strong> V sekci Reference je vložen příspěvek z Facebooku (iframe). Při zobrazení této sekce může Facebook načíst své cookies pro funkčnost embedu a případné rozpoznání přihlášeného uživatele. Iframe se načítá až při scrollu k sekci (lazy loading). Pokud si to nepřejete, sekci můžete přeskočit nebo využít rozšíření blokující cookies třetích stran.</p>
       <p style="margin-top:1rem;"><strong>Vaše práva:</strong> Máte právo na přístup k údajům, jejich opravu, výmaz, omezení zpracování a právo podat stížnost u Úřadu pro ochranu osobních údajů (<a href="https://www.uoou.cz" target="_blank" rel="noopener">www.uoou.cz</a>). S dotazy se obraťte na výše uvedený e-mail.</p>
     </div>
   </div>
@@ -1683,7 +1743,13 @@ const galleryImages = [
   'foto/web/IMG20260308094956.jpg',
   'foto/web/20250517_080917.jpg',
   'foto/web/PXL_20250308_160017248~2.jpg',
-  'foto/web/IMG20260331152542.jpg'
+  'foto/web/IMG20260331152542.jpg',
+  'foto/web/IMG_20260501_112042.jpg',
+  'foto/web/IMG20260505084825.jpg',
+  'foto/web/IMG20260505081516.jpg',
+  'foto/web/IMG20260505110918.jpg',
+  'foto/web/IMG20260505081745.jpg',
+  'foto/web/IMG20260502174449.jpg'
 ];
 let currentImg = 0;
 const lightbox = document.getElementById('lightbox');
