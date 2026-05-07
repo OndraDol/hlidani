@@ -822,21 +822,26 @@ body::after {
 
 /* ====== TESTIMONIALS ====== */
 .testimonials { background: var(--light); }
-.testimonials-iframe-wrap {
-  display: flex;
-  justify-content: center;
+.testimonials-card {
+  max-width: 720px;
   margin: 0 auto;
-  max-width: 100%;
 }
-.testimonials-iframe-wrap iframe {
-  border: none;
-  overflow: hidden;
-  max-width: 100%;
-  width: 500px;
-  height: 810px;
+.testimonials-card a {
+  display: block;
   border-radius: var(--radius);
+  overflow: hidden;
   box-shadow: var(--shadow-soft);
   background: var(--white);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.testimonials-card a:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.testimonials-card img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* ====== GALLERY ====== */
@@ -1557,12 +1562,10 @@ body::after {
       <h2 class="section-title">Co o mně píší klienti</h2>
       <p class="section-desc">Recenze přímo od majitelů zvířátek, které jsem hlídala.</p>
     </div>
-    <div class="testimonials-iframe-wrap reveal">
-      <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fmarketa.hermanova01%2Fposts%2Fpfbid02oaJvcjS3pHGpWpXfpLveoozELkzcusFsa6XjHFvMQRHDSsKkyTved82Jd5VUMAMAl&show_text=true&width=500"
-              width="500" height="810"
-              loading="lazy" scrolling="no" frameborder="0" allowfullscreen="true"
-              title="Recenze klientky Markéty Heřmanové na Facebooku"
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    <div class="testimonials-card reveal">
+      <a href="https://www.facebook.com/profile.php?id=61575346780907" target="_blank" rel="noopener" aria-label="Otevřít recenzi na Facebooku">
+        <img src="foto/web/reference.jpg" alt="Recenze klientky na Facebooku: Moc doporučujeme. Náš Montík byl u Pavlínky spokojený a v pohodě, bylo vidět, že o něj bylo s láskou postaráno." loading="lazy">
+      </a>
     </div>
     <p style="text-align:center;margin-top:2.5rem;" class="reveal">
       <a href="https://www.facebook.com/profile.php?id=61575346780907" target="_blank" rel="noopener" class="btn-cta btn-cta-outline">Více recenzí na Facebooku</a>
@@ -1674,7 +1677,7 @@ body::after {
       <p><strong>Provozovatel:</strong> Pavlína Dolejšová, IČO: 24929999<br>Mánesova 1243/8, 412 01 Litoměřice<br>E-mail: <a href="mailto:pavlina.dolejsova92@gmail.com">pavlina.dolejsova92@gmail.com</a>, tel.: <a href="tel:+420733285598">733 285 598</a></p>
       <p style="margin-top:1rem;"><strong>Cookies:</strong> Tento web nepoužívá žádné cookies.</p>
       <p style="margin-top:1rem;"><strong>Analytika:</strong> Pro anonymní měření návštěvnosti používáme službu GoatCounter, která neukládá osobní údaje, nepoužívá cookies a IP adresy zpracovává pouze v anonymizované podobě.</p>
-      <p style="margin-top:1rem;"><strong>Třetí strany:</strong> V sekci Reference je vložen příspěvek z Facebooku (iframe). Při zobrazení této sekce může Facebook načíst své cookies pro funkčnost embedu a případné rozpoznání přihlášeného uživatele. Iframe se načítá až při scrollu k sekci (lazy loading). Pokud si to nepřejete, sekci můžete přeskočit nebo využít rozšíření blokující cookies třetích stran.</p>
+      <p style="margin-top:1rem;"><strong>Třetí strany:</strong> Web nenačítá žádné externí zdroje, které by zpracovávaly osobní údaje návštěvníků.</p>
       <p style="margin-top:1rem;"><strong>Vaše práva:</strong> Máte právo na přístup k údajům, jejich opravu, výmaz, omezení zpracování a právo podat stížnost u Úřadu pro ochranu osobních údajů (<a href="https://www.uoou.cz" target="_blank" rel="noopener">www.uoou.cz</a>). S dotazy se obraťte na výše uvedený e-mail.</p>
     </div>
   </div>
