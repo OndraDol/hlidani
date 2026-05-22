@@ -822,26 +822,29 @@ body::after {
 
 /* ====== TESTIMONIALS ====== */
 .testimonials { background: var(--light); }
-.testimonials-card {
-  max-width: 720px;
-  margin: 0 auto;
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 }
-.testimonials-card a {
+.testimonial-item a {
   display: block;
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
   background: var(--white);
   transition: transform var(--transition), box-shadow var(--transition);
+  aspect-ratio: 4 / 5;
 }
-.testimonials-card a:hover {
+.testimonial-item a:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
 }
-.testimonials-card img {
+.testimonial-item img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ====== GALLERY ====== */
@@ -1070,6 +1073,10 @@ body::after {
   .timeline { padding-left: 3rem; }
   .timeline-dot { left: -3rem; }
   .hero-content { padding: 2rem 2rem 5rem; }
+}
+
+@media (max-width: 900px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
 }
 
 @media (min-width: 1024px) {
@@ -1562,10 +1569,22 @@ body::after {
       <h2 class="section-title">Co o mně píší klienti</h2>
       <p class="section-desc">Recenze přímo od majitelů zvířátek, které jsem hlídala.</p>
     </div>
-    <div class="testimonials-card reveal">
-      <a href="https://www.facebook.com/profile.php?id=61575346780907" target="_blank" rel="noopener" aria-label="Otevřít recenzi na Facebooku">
-        <img src="foto/web/reference.jpg" alt="Recenze klientky na Facebooku: Moc doporučujeme. Náš Montík byl u Pavlínky spokojený a v pohodě, bylo vidět, že o něj bylo s láskou postaráno." loading="lazy">
-      </a>
+    <div class="testimonials-grid reveal">
+      <div class="testimonial-item">
+        <a href="https://www.facebook.com/profile.php?id=61575346780907" target="_blank" rel="noopener" aria-label="Otevřít recenzi na Facebooku">
+          <img src="foto/reference.jpg" alt="Reference klientky na Facebooku." loading="lazy">
+        </a>
+      </div>
+      <div class="testimonial-item">
+        <a href="https://www.facebook.com/profile.php?id=61575346780907" target="_blank" rel="noopener" aria-label="Otevřít recenzi na Facebooku">
+          <img src="foto/reference2.jpg" alt="Další reference klientky na Facebooku." loading="lazy">
+        </a>
+      </div>
+      <div class="testimonial-item">
+        <a href="https://www.facebook.com/profile.php?id=61575346780907" target="_blank" rel="noopener" aria-label="Otevřít recenzi na Facebooku">
+          <img src="foto/reference3.jpg" alt="Třetí reference klientky na Facebooku." loading="lazy">
+        </a>
+      </div>
     </div>
     <p style="text-align:center;margin-top:2.5rem;" class="reveal">
       <a href="https://www.facebook.com/profile.php?id=61575346780907" target="_blank" rel="noopener" class="btn-cta btn-cta-outline">Více recenzí na Facebooku</a>
