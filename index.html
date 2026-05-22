@@ -790,16 +790,66 @@ body::after {
 .pricing-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 1rem;
   padding: 0.8rem 0;
   border-bottom: 1px dashed rgba(61,61,61,0.1);
 }
 .pricing-row:last-child { border-bottom: none; }
-.pricing-row span:first-child { color: var(--dark-soft); font-size: 0.95rem; }
-.pricing-row span:last-child {
+.pricing-row > span:first-child { color: var(--dark-soft); font-size: 0.95rem; }
+.pricing-row > span:last-child {
   font-family: 'Quicksand', sans-serif;
   font-weight: 700;
   color: var(--dark);
+  text-align: right;
+  white-space: nowrap;
+}
+.pricing-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.price-help {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  background: var(--secondary);
+  color: var(--primary);
+  font-size: 0.75rem;
+  line-height: 1;
+  cursor: help;
+}
+.price-help::after {
+  content: attr(aria-label);
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.45rem);
+  width: max-content;
+  max-width: 12rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+  background: var(--dark);
+  color: var(--white);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.25rem);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: normal;
+  z-index: 3;
+}
+.price-help:hover::after,
+.price-help:focus::after {
+  opacity: 1;
+  transform: translateY(0);
 }
 .pricing-row .free {
   color: var(--accent);
@@ -1415,7 +1465,7 @@ body::after {
           </div>
           <div class="pricing-row">
             <span>Velký pes (nad 25 kg)</span>
-            <span>700 Kč/den (přijetí dle domluvy)</span>
+            <span class="pricing-value">700 Kč/den <span class="price-help" tabindex="0" aria-label="přijetí dle domluvy" title="přijetí dle domluvy">?</span></span>
           </div>
           <div class="pricing-row">
             <span>Druhý pes stejného majitele</span>
